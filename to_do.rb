@@ -21,12 +21,19 @@ def main_menu
             add_task
             next
           elsif task_choice == "v"
-            puts "Which list would you like to view?"
+            puts "Which list of tasks would you like to view?"
             list_view = gets.chomp.to_i
             list_tasks(list_view)
-            next
-          else
-            next
+            puts "Press 'x' to exit or 'd' to delete a task"
+            task_delete = gets.chomp
+              if task_delete == 'x'
+                next
+              elsif task_delete == 'd'
+                delete_task(list_view)
+                next
+              else
+                next
+              end
           end
     elsif main_choice == 'x'
       puts "Good-bye!"
@@ -58,6 +65,7 @@ def list_lists
     puts "#{index+1}. #{list.description}"
   end
 end
+
 def add_task
   list_lists
   puts "Which list would you like to put your task inside?"
@@ -69,15 +77,16 @@ def add_task
   puts "Task added.\n\n"
 end
 
-
-def delete_task
-  puts list_tasks
+def delete_task(x)
   puts "Enter the number of the item that you'd like to delete"
   deleted_item = gets.chomp.to_i
-  @task.delete_at(deleted_item-1)
-  puts list_tasks
+  @list.each_with_index do |list, index|
+    if x == index + 1
+        list.tasks.delete_at(deleted_item-1)
+    end
+  end
+  list_tasks(x)
 end
-
 
 
 def list_tasks(x)
