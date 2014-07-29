@@ -8,8 +8,6 @@ def main_menu
     puts "Press'c' to create a list, 'r' to remove a list, or 's' to show your lists."
     puts "Press 'x' to exit."
 
-    # 'd' to delete a task, 'l' to list all of your tasks 'a' to add a task
-
     main_choice = gets.chomp
     if main_choice == 'c'
       add_list
@@ -17,10 +15,15 @@ def main_menu
       delete_lists
     elsif main_choice == 's'
       list_lists
-      puts "Press 't' to add a task or press any button to go back to the main menu"
+      puts "Press 't' to add a task,'v' to view tasks, or press any other button to go back to the main menu"
         task_choice = gets.chomp
           if task_choice == "t"
             add_task
+            next
+          elsif task_choice == "v"
+            puts "Which list would you like to view?"
+            list_view = gets.chomp.to_i
+            list_tasks(list_view)
             next
           else
             next
