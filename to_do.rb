@@ -7,7 +7,6 @@ def main_menu
   loop do
     puts "Press'c' to create a list, 'r' to remove a list, or 's' to show your lists."
     puts "Press 'x' to exit."
-
     main_choice = gets.chomp
     if main_choice == 'c'
       add_list
@@ -80,26 +79,17 @@ end
 def delete_task(x)
   puts "Enter the number of the item that you'd like to delete"
   deleted_item = gets.chomp.to_i
-  @list.each_with_index do |list, index|
-    if x == index + 1
-        list.tasks.delete_at(deleted_item-1)
-    end
-  end
+  @list[x-1].tasks.delete_at(deleted_item-1)
   list_tasks(x)
 end
 
-
 def list_tasks(x)
   puts "Here are all of your tasks for this list:"
-  @list.each_with_index do |list, index|
-    if x == index + 1
-      list.tasks.each_with_index do |task, index|
-          puts "#{index + 1}. #{task.description}"
-      end
+  @list[x-1].tasks.each_with_index do |task, index|
+    puts "#{index + 1}. #{task.description}"
+  end
     #above code uses string interpolation
     #also uses "with_index" to act as a counter
-    end
-  end
   puts "\n"
 end
 
