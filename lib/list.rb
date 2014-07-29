@@ -12,5 +12,9 @@ class List
     @tasks << task
   end
 
+  def tasks
+    @tasks
+  end
+
 end
 

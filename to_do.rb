@@ -2,7 +2,6 @@ require './lib/task'
 require './lib/list'
 
 @list = []
-@tasks = []
 
 def main_menu
   loop do
@@ -18,6 +17,14 @@ def main_menu
       delete_lists
     elsif main_choice == 's'
       list_lists
+      puts "Press 't' to add a task or press any button to go back to the main menu"
+        task_choice = gets.chomp
+          if task_choice == "t"
+            add_task
+            next
+          else
+            next
+          end
     elsif main_choice == 'x'
       puts "Good-bye!"
       exit
@@ -34,13 +41,6 @@ def add_list
   puts "List added. \n\n"
 end
 
-# def add_task
-#   puts "Enter a description of the new task:"
-#   user_description = gets.chomp
-#   @task << Task.new(user_description)
-#   puts "Task added.\n\n"
-# end
-
 def delete_lists
   list_lists
   puts "Enter the number of the list that you'd like to delete"
@@ -49,31 +49,46 @@ def delete_lists
   list_lists
 end
 
-# def delete_task
-#   puts list_tasks
-#   puts "Enter the number of the item that you'd like to delete"
-#   deleted_item = gets.chomp.to_i
-#   @task.delete_at(deleted_item-1)
-#   puts list_tasks
-# end
-
 def list_lists
   puts "Here are all of your lists:"
   @list.each_with_index do |list, index|
     puts "#{index+1}. #{list.description}"
   end
 end
+def add_task
+  list_lists
+  puts "Which list would you like to put your task inside?"
+  list_choice = gets.chomp.to_i
+  puts "Enter a description of the new task:"
+  user_description = gets.chomp
+  @list[list_choice-1].add_task(Task.new(user_description))
+  list_tasks(list_choice)
+  puts "Task added.\n\n"
+end
 
-# def list_tasks
-#   puts "Here are all of your tasks:"
-#   # counter = 1
-#   @task.each_with_index do |task, index|
-#     puts "#{index+1}. #{task.description}"
-#     #above code uses string interpolation
-#     #also uses "with_index" to act as a counter
 
-#   end
-#   puts "\n"
-# end
+def delete_task
+  puts list_tasks
+  puts "Enter the number of the item that you'd like to delete"
+  deleted_item = gets.chomp.to_i
+  @task.delete_at(deleted_item-1)
+  puts list_tasks
+end
+
+
+
+def list_tasks(x)
+  puts "Here are all of your tasks for this list:"
+  @list.each_with_index do |list, index|
+    if x == index + 1
+      list.tasks.each_with_index do |task, index|
+          puts "#{index + 1}. #{task.description}"
+      end
+    #above code uses string interpolation
+    #also uses "with_index" to act as a counter
+    end
+  end
+  puts "\n"
+end
 
 main_menu
