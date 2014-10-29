@@ -10,7 +10,7 @@ __________________
 Ruby app that allows users to enter and manage multiple to do lists and associates tasks
 
 ###Setup
-Either clone this repository or download the .zip and open in your console or sublime.
+Clone the repo, install ruby, open in your terminal run ruby to create your own to-do-lists.
 
 ###License
 MIT
